@@ -14,6 +14,8 @@ export interface ChartProps {
   onSelect: (bar: number, pos: number, shift: boolean) => void;
   /** 這個和弦在「循環區間」的位置：none / start / mid / end / single */
   rangeState?: (bar: number, pos: number) => "none" | "start" | "mid" | "end" | "single";
+  /** 在和弦上按下滑鼠／手指：App 用它開始「拖曳選取區間」 */
+  onChordPointerDown?: (bar: number, pos: number, e: React.PointerEvent) => void;
   /** 正在挑區間（點開頭、再點結尾）時，游標提示 */
   picking?: boolean;
 }
@@ -35,7 +37,7 @@ function toRows(bars: readonly Measure[]): number[][] {
   return rows;
 }
 
-export default function Chart({ bars, chords, selected, onSelect, rangeState, picking }: ChartProps) {
+export default function Chart({ bars, chords, selected, onSelect, rangeState, picking, onChordPointerDown }: ChartProps) {
   const rows = toRows(bars);
   return (
     <div className={`chart${picking ? " chart-picking" : ""}`} role="list">
@@ -58,6 +60,9 @@ export default function Chart({ bars, chords, selected, onSelect, rangeState, pi
                         type="button"
                         className={`chord${active ? " chord-active" : ""}${isNC ? " chord-nc" : ""}${rs !== "none" ? ` chord-range chord-range-${rs}` : ""}`}
                         disabled={isNC}
+                        data-bar={barIdx}
+                        data-pos={pos}
+                        onPointerDown={(e) => onChordPointerDown?.(barIdx, pos, e)}
                         onClick={(e) => onSelect(barIdx, pos, e.shiftKey)}
                         aria-pressed={active}
                       >

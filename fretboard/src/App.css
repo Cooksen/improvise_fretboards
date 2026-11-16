@@ -237,3 +237,4 @@ button, select, input { font: inherit; color: inherit; }
 .chord-range-end, .chord-range-single { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
 .chord-range-end { box-shadow: inset -4px 0 0 var(--accent), inset 0 -3px 0 var(--accent); }
 .chord-range-single { box-shadow: inset 4px 0 0 var(--accent), inset -4px 0 0 var(--accent), inset 0 -3px 0 var(--accent); }
+.chart { user-select: none; -webkit-user-select: none; }

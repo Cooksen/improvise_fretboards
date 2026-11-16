@@ -82,6 +82,9 @@ export default function App() {
   const [loopRange, setLoopRange] = useState<{ from: number; to: number } | null>(null);
   const [picking, setPicking] = useState(false);
   const [pickAnchor, setPickAnchor] = useState<number | null>(null);
+  /** 拖曳選取中的預覽區間（事件索引）；沒在拖就是 null */
+  const [dragView, setDragView] = useState<{ from: number; to: number } | null>(null);
+  const dragRef = useRef<{ anchor: number; current: number; moved: boolean } | null>(null);
   const [sound, setSound] = useState<SoundOptions>({ click: false, comp: true, bass: true, volume: 0.7 });
 
   const playerRef = useRef<Player | null>(null);
@@ -205,17 +208,45 @@ export default function App() {
     setTempoSource(chartBpm > 0 ? "chart" : "style");
   };
 
-  // 播放中讓目前和弦保持在畫面內（指板區是 sticky，要避開它）
-  useEffect(() => {
-    if (!playing) return;
+  // 播放中讓目前和弦「整列」保持在畫面內。指板區是 sticky、會蓋住上方一塊，
+  // 所以可視範圍是「指板區下緣 ～ 視窗下緣」，要捲到這個範圍的正中間（不能用一般的置中）。
+  const ensureActiveVisible = useCallback(() => {
     const el = document.querySelector<HTMLElement>(".chord-active");
     const stage = document.querySelector<HTMLElement>(".stage");
     if (!el || !stage) return;
-    const r = el.getBoundingClientRect();
-    if (r.top < stage.getBoundingClientRect().bottom + 8 || r.bottom > window.innerHeight - 8) {
-      el.scrollIntoView({ block: "center", behavior: "smooth" });
-    }
-  }, [selected, playing]);
+    // 指板區貼在視窗最上方時，它的下緣就是它自己的高度；用這個值而不是現在的位置，
+    // 因為還沒捲動時它不一定已經貼頂，用現在的位置會一次捲不到位、要連續修正好幾次。
+    const top = stage.offsetHeight;
+    const bottom = window.innerHeight;
+    const row = el.closest<HTMLElement>(".chart-row") ?? el;
+    const r = row.getBoundingClientRect();
+    const margin = 12;
+    // 不只要目前這列看得到，下面還要留一列的空間，這樣換到下一列時它已經在畫面裡，不會閃一下被擋住
+    if (r.top >= top + margin && r.bottom + r.height <= bottom - margin) return;
+    const roomy = bottom - top >= r.height * 2.6;
+    const targetY = top + (bottom - top) * (roomy ? 0.3 : 0.5);
+    const delta = (r.top + r.bottom) / 2 - targetY;
+    window.scrollBy({ top: delta, behavior: "smooth" });
+  }, []);
+
+  const playingRef = useRef(false);
+  playingRef.current = playing;
+
+  useEffect(() => {
+    if (playing) ensureActiveVisible();
+  }, [selected, playing, ensureActiveVisible]);
+
+  // 指板區高度會變（預備拍標籤、區間標籤出現會讓播放列換行）→ 變了就重新確認
+  const hasSong = !!song;
+  useEffect(() => {
+    const stage = document.querySelector<HTMLElement>(".stage");
+    if (!stage || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => {
+      if (playingRef.current) ensureActiveVisible();
+    });
+    ro.observe(stage);
+    return () => ro.disconnect();
+  }, [hasSong, ensureActiveVisible]);
 
   const applyRange = (from: number, to: number) => {
     const r = { from: Math.min(from, to), to: Math.max(from, to) };
@@ -227,8 +258,56 @@ export default function App() {
       const sel = selectedRef.current;
       const cur = sel ? eventIndex(sel.bar, sel.pos) : -1;
       if (cur < r.from || cur > r.to) player.seek(r.from); // 目前位置在區間外 → 跳進區間
+    } else {
+      const ev = live.current.timeline[r.from];
+      if (ev) setSelected({ bar: ev.bar, pos: ev.pos }); // 沒在播放：指板顯示區間的第一個和弦
     }
   };
+
+  // ---- 拖曳選取：在和弦上按下 → 拖過相鄰和弦 → 放開 = 區間（沒移動就是一般點擊）----
+  const onChordPointerDown = (bar: number, pos: number, e: React.PointerEvent) => {
+    if (picking || e.button !== 0) return;
+    const i = eventIndex(bar, pos);
+    if (i >= 0) dragRef.current = { anchor: i, current: i, moved: false };
+  };
+
+  useEffect(() => {
+    const chordAt = (x: number, y: number) => {
+      const el = document.elementFromPoint(x, y)?.closest<HTMLElement>("[data-bar][data-pos]");
+      if (!el || (el as HTMLButtonElement).disabled) return -1;
+      return live.current.timeline.findIndex((ev) => ev.bar === Number(el.dataset.bar) && ev.pos === Number(el.dataset.pos));
+    };
+    const onMove = (e: PointerEvent) => {
+      const d = dragRef.current;
+      if (!d) return;
+      const i = chordAt(e.clientX, e.clientY);
+      if (i < 0 || i === d.current) return;
+      d.current = i;
+      d.moved = d.current !== d.anchor;
+      setDragView(d.moved ? { from: Math.min(d.anchor, i), to: Math.max(d.anchor, i) } : null);
+    };
+    const onUp = () => {
+      const d = dragRef.current;
+      dragRef.current = null;
+      setDragView(null);
+      if (d?.moved && d.anchor !== d.current) applyRangeRef.current(d.anchor, d.current);
+    };
+    const onCancel = () => {
+      dragRef.current = null;
+      setDragView(null);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onCancel);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onCancel);
+    };
+  }, []);
+
+  const applyRangeRef = useRef(applyRange);
+  applyRangeRef.current = applyRange;
 
   const onChartSelect = (bar: number, pos: number, shift: boolean) => {
     const i = eventIndex(bar, pos);
@@ -269,7 +348,7 @@ export default function App() {
   const rangeState = (bar: number, pos: number) => {
     const i = eventIndex(bar, pos);
     if (pickAnchor != null && i === pickAnchor) return "single" as const;
-    const r = loopRange;
+    const r = dragView ?? loopRange;
     if (!r || i < r.from || i > r.to) return "none" as const;
     if (r.from === r.to) return "single" as const;
     return i === r.from ? ("start" as const) : i === r.to ? ("end" as const) : ("mid" as const);
@@ -341,6 +420,8 @@ export default function App() {
         return;
       }
       if (e.key === "Escape") {
+        dragRef.current = null;
+        setDragView(null);
         setPicking(false);
         setPickAnchor(null);
         return;
@@ -608,6 +689,7 @@ export default function App() {
             onSelect={onChartSelect}
             rangeState={rangeState}
             picking={picking}
+            onChordPointerDown={onChordPointerDown}
           />
           <p className="hint">{t.hint}</p>
           <p className="hint">{t.playHint}</p>
