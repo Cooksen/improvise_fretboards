@@ -205,58 +205,129 @@ export class Player {
   }
 
   private strum(midis: number[], time: number, dur: number, vel: number) {
-    const ctx = this.ctx!;
-    const per = 0.2 / Math.sqrt(Math.max(midis.length, 1));
-    midis.forEach((m, i) => {
-      const t = time + i * 0.012;
-      const g = ctx.createGain();
-      const f = ctx.createBiquadFilter();
-      f.type = "lowpass";
-      f.frequency.setValueAtTime(3200, t);
-      f.frequency.exponentialRampToValueAtTime(900, t + dur);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(per * vel, t + 0.004);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      f.connect(g).connect(this.master!);
-      for (const [type, detune, level] of [
-        ["sawtooth", -4, 0.5],
-        ["triangle", 4, 1],
-      ] as const) {
-        const osc = ctx.createOscillator();
-        const lg = ctx.createGain();
-        lg.gain.value = level;
-        osc.type = type;
-        osc.frequency.value = midiHz(m);
-        osc.detune.value = detune;
-        osc.connect(lg).connect(f);
-        osc.start(t);
-        osc.stop(t + dur + 0.05);
-      }
-    });
+    const per = (0.24 / Math.sqrt(Math.max(midis.length, 1))) * vel;
+    midis.forEach((m, i) => pianoNote(this.ctx!, this.master!, m, time + i * 0.008, dur, per));
   }
 
   private bassNote(m: number, time: number, dur: number, vel: number) {
-    const ctx = this.ctx!;
-    const g = ctx.createGain();
-    const f = ctx.createBiquadFilter();
-    f.type = "lowpass";
-    f.frequency.value = 650;
-    g.gain.setValueAtTime(0.0001, time);
-    g.gain.exponentialRampToValueAtTime(0.42 * vel, time + 0.012);
-    g.gain.exponentialRampToValueAtTime(0.0001, time + dur);
-    f.connect(g).connect(this.master!);
-    for (const [type, mult, level] of [
-      ["triangle", 1, 1],
-      ["sine", 0.5, 0.6],
-    ] as const) {
-      const osc = ctx.createOscillator();
-      const lg = ctx.createGain();
-      lg.gain.value = level;
-      osc.type = type;
-      osc.frequency.value = midiHz(m) * mult;
-      osc.connect(lg).connect(f);
-      osc.start(time);
-      osc.stop(time + dur + 0.05);
-    }
+    bassPluck(this.ctx!, this.master!, m, time, dur, 0.5 * vel);
   }
+}
+
+// ------------------------------------------------------------ 音色（合成）--
+// 不用任何音檔：鋼琴用「泛音列 + 兩根略微失諧的弦 + 琴槌敲擊雜音 + 亮到暗的濾波」模擬；
+// 低音提琴用「富含泛音的撥弦 + 指板敲擊聲 + 濾波掃頻 + 低八度的 sine」模擬。
+
+type Ctx = BaseAudioContext;
+const waveCache = new WeakMap<Ctx, Record<string, PeriodicWave>>();
+const noiseCache = new WeakMap<Ctx, AudioBuffer>();
+
+function wave(ctx: Ctx, name: string, partials: (n: number) => number, count: number): PeriodicWave {
+  const cache = waveCache.get(ctx) ?? {};
+  waveCache.set(ctx, cache);
+  if (!cache[name]) {
+    const real = new Float32Array(count + 1);
+    const imag = new Float32Array(count + 1);
+    for (let n = 1; n <= count; n++) imag[n] = partials(n);
+    cache[name] = ctx.createPeriodicWave(real, imag);
+  }
+  return cache[name];
+}
+
+function noise(ctx: Ctx): AudioBuffer {
+  let b = noiseCache.get(ctx);
+  if (!b) {
+    b = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.08), ctx.sampleRate);
+    const d = b.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    noiseCache.set(ctx, b);
+  }
+  return b;
+}
+
+/** 短促的雜音（琴槌 / 手指敲擊） */
+function thump(ctx: Ctx, out: AudioNode, time: number, freq: number, q: number, gain: number, len: number) {
+  const src = ctx.createBufferSource();
+  src.buffer = noise(ctx);
+  const bp = ctx.createBiquadFilter();
+  bp.type = "bandpass";
+  bp.frequency.value = freq;
+  bp.Q.value = q;
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(gain, time);
+  g.gain.exponentialRampToValueAtTime(0.0001, time + len);
+  src.connect(bp).connect(g).connect(out);
+  src.start(time);
+  src.stop(time + len + 0.01);
+}
+
+/** 一個鋼琴音。gain 是峰值音量；dur 是按住的時間，之後 ~120ms 內收掉。 */
+export function pianoNote(ctx: Ctx, out: AudioNode, midi: number, time: number, dur: number, gain: number) {
+  const f0 = midiHz(midi);
+  const tau = Math.max(0.25, 0.35 + (84 - midi) * 0.018); // 低音衰減慢、高音快
+  const peak = gain;
+  const end = Math.max(peak * Math.exp(-dur / tau), 0.0002);
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(Math.min(9000, f0 * 16), time);
+  filter.frequency.exponentialRampToValueAtTime(Math.max(f0 * 3, 400), time + Math.min(dur, 0.5));
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, time);
+  g.gain.linearRampToValueAtTime(peak, time + 0.003);
+  g.gain.exponentialRampToValueAtTime(end, time + Math.max(dur, 0.02));
+  g.gain.exponentialRampToValueAtTime(0.0001, time + Math.max(dur, 0.02) + 0.12);
+  filter.connect(g).connect(out);
+
+  const w = wave(ctx, "piano", (n) => (n % 2 === 0 ? 0.8 : 1) / Math.pow(n, 1.25), 14);
+  const spread = midi < 52 ? 1.5 : 3.5; // 兩根弦略微失諧 → 厚度
+  for (const detune of [-spread, spread]) {
+    const osc = ctx.createOscillator();
+    osc.setPeriodicWave(w);
+    osc.frequency.value = f0;
+    osc.detune.value = detune;
+    osc.connect(filter);
+    osc.start(time);
+    osc.stop(time + Math.max(dur, 0.02) + 0.15);
+  }
+  thump(ctx, out, time, Math.min(f0 * 4, 3000), 0.9, peak * 0.35, 0.025);
+}
+
+/** 一個低音提琴撥弦音（midi 是實際發聲的音高） */
+export function bassPluck(ctx: Ctx, out: AudioNode, midi: number, time: number, dur: number, gain: number) {
+  const f0 = midiHz(midi);
+  const len = Math.max(dur, 0.05);
+
+  const filter = ctx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.Q.value = 0.8;
+  filter.frequency.setValueAtTime(Math.min(2200, f0 * 14), time);
+  filter.frequency.exponentialRampToValueAtTime(Math.max(f0 * 2.5, 260), time + Math.min(len, 0.22));
+
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, time);
+  g.gain.linearRampToValueAtTime(gain, time + 0.008);
+  g.gain.exponentialRampToValueAtTime(gain * 0.4, time + len * 0.8);
+  g.gain.exponentialRampToValueAtTime(0.0001, time + len + 0.06);
+  filter.connect(g).connect(out);
+
+  const body = wave(ctx, "bass", (n) => 1 / Math.pow(n, 0.95), 18);
+  const main = ctx.createOscillator();
+  main.setPeriodicWave(body);
+  main.frequency.value = f0;
+  main.connect(filter);
+
+  // 純音的基音：讓小喇叭也聽得到音高
+  const sub = ctx.createOscillator();
+  sub.type = "sine";
+  sub.frequency.value = f0;
+  const subGain = ctx.createGain();
+  subGain.gain.value = 0.55;
+  sub.connect(subGain).connect(g);
+
+  for (const o of [main, sub]) {
+    o.start(time);
+    o.stop(time + len + 0.1);
+  }
+  thump(ctx, out, time, 650, 1.2, gain * 0.5, 0.035);
 }
