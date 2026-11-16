@@ -11,6 +11,12 @@ export interface PlayerBarProps {
   tempoSource: TempoSource;
   onBpm: (n: number) => void;
   onResetBpm: () => void;
+  /** 循環區間：null = 沒選；label 是「小節 4–6」之類的文字 */
+  rangeLabel: string | null;
+  picking: boolean;
+  pickStep: "start" | "end";
+  onPickToggle: () => void;
+  onRangeClear: () => void;
   countIn: boolean;
   onCountIn: (v: boolean) => void;
   /** 預備拍進行中：目前第幾拍（1–4），否則 null */
@@ -76,13 +82,32 @@ export default function PlayerBar(p: PlayerBarProps) {
         )}
       </div>
 
+      <div className="range-pick">
+        <button type="button" className={p.picking ? "on" : ""} aria-pressed={p.picking} onClick={p.onPickToggle}>
+          {p.picking ? t.rangeCancel : t.rangePick}
+        </button>
+        {p.picking && <span className="range-step">{p.pickStep === "start" ? t.rangePickStart : t.rangePickEnd}</span>}
+        {!p.picking && p.rangeLabel && (
+          <>
+            <span className="range-label">
+              {t.rangeActive}
+              {t.colon}
+              <b>{p.rangeLabel}</b>
+            </span>
+            <button type="button" className="ghost" onClick={p.onRangeClear}>
+              {t.rangeClear}
+            </button>
+          </>
+        )}
+      </div>
+
       <div className="toggles">
         <label className={p.countIn ? "on" : ""}>
           <input type="checkbox" checked={p.countIn} onChange={(e) => p.onCountIn(e.target.checked)} />
           {t.countIn}
         </label>
-        <label className={p.loop ? "on" : ""}>
-          <input type="checkbox" checked={p.loop} onChange={(e) => p.onLoop(e.target.checked)} />
+        <label className={p.loop || p.rangeLabel ? "on" : ""} title={p.rangeLabel ? t.loopDisabledByRange : undefined}>
+          <input type="checkbox" checked={p.loop || !!p.rangeLabel} disabled={!!p.rangeLabel} onChange={(e) => p.onLoop(e.target.checked)} />
           {t.loop}
         </label>
         <label className={p.comp ? "on" : ""}>

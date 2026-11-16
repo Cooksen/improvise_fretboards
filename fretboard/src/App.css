@@ -225,3 +225,15 @@ button, select, input { font: inherit; color: inherit; }
 .toggles label.vol input { width: 90px; }
 .toggles input[type="checkbox"] { accent-color: var(--accent); margin: 0; }
 .count-badge { min-width: 64px; text-align: center; padding: 5px 10px; border-radius: 8px; background: color-mix(in srgb, var(--outside) 35%, var(--panel)); border: 1px solid color-mix(in srgb, var(--outside) 60%, transparent); font-weight: 700; }
+
+/* ---- 循環區間 ---- */
+.range-pick { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.range-pick button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.range-step { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+.range-label { font-size: 0.9rem; }
+.chart-picking .chord:not(:disabled) { cursor: crosshair; }
+.chord-range { box-shadow: inset 0 -3px 0 var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+.chord-range-start, .chord-range-single { border-top-left-radius: 8px; border-bottom-left-radius: 8px; box-shadow: inset 4px 0 0 var(--accent), inset 0 -3px 0 var(--accent); }
+.chord-range-end, .chord-range-single { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+.chord-range-end { box-shadow: inset -4px 0 0 var(--accent), inset 0 -3px 0 var(--accent); }
+.chord-range-single { box-shadow: inset 4px 0 0 var(--accent), inset -4px 0 0 var(--accent), inset 0 -3px 0 var(--accent); }

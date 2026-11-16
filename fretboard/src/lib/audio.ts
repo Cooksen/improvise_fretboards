@@ -12,6 +12,8 @@ export interface PlayerHooks {
   getTimeline: () => readonly PlayEvent[];
   getOptions: () => SoundOptions;
   getLoop: () => boolean;
+  /** 只重複某一段（事件索引，含頭尾）；null = 整首 */
+  getRange: () => { from: number; to: number } | null;
   /** 預備拍：第 n 拍（1 起算）時呼叫；開始正式播放時傳 null */
   onCount?: (n: number | null) => void;
   /** 播放位置換到某個和弦時（和聲音對齊）呼叫 */
@@ -39,6 +41,8 @@ function bassMidi(pc: number): number {
 export class Player {
   private ctx: AudioContext | null = null;
   private master: GainNode | null = null;
+  /** 每次開始 / 跳轉 / 試聽都換一條新的 bus；換掉或停止時把舊的快速淡出，才不會殘留或疊音 */
+  private bus: GainNode | null = null;
   private timer: number | null = null;
   private raf: number | null = null;
   private idx = 0;
@@ -66,6 +70,31 @@ export class Player {
     return this.ctx;
   }
 
+  private out(): GainNode {
+    return this.bus ?? this.newBus();
+  }
+
+  private newBus(): GainNode {
+    this.fadeBus();
+    const b = this.ctx!.createGain();
+    b.connect(this.master!);
+    this.bus = b;
+    return b;
+  }
+
+  /** 把目前這條 bus 在 ~30ms 內淡出並丟掉（已排程但還沒響的音也一起消失） */
+  private fadeBus() {
+    const b = this.bus;
+    const ctx = this.ctx;
+    this.bus = null;
+    if (!b || !ctx) return;
+    const t = ctx.currentTime;
+    b.gain.cancelScheduledValues(t);
+    b.gain.setValueAtTime(b.gain.value, t);
+    b.gain.linearRampToValueAtTime(0, t + 0.03);
+    window.setTimeout(() => b.disconnect(), 150);
+  }
+
   setVolume(v: number) {
     if (this.master && this.ctx) this.master.gain.setTargetAtTime(Math.max(0, Math.min(1, v)) * 0.9, this.ctx.currentTime, 0.02);
   }
@@ -74,6 +103,7 @@ export class Player {
   start(index: number, countIn = 0) {
     const ctx = this.ensure();
     this.stopTimers();
+    this.newBus();
     this.running = true;
     this.idx = Math.max(0, index);
     this.nextTime = ctx.currentTime + 0.08;
@@ -98,6 +128,7 @@ export class Player {
   /** 播放中跳到指定和弦 */
   seek(index: number) {
     if (!this.running || !this.ctx) return;
+    this.newBus(); // 舊和弦立刻淡出，新和弦才進來 → 不會撞音
     this.idx = Math.max(0, index);
     this.nextTime = this.ctx.currentTime + 0.05;
     this.queue = [];
@@ -109,6 +140,7 @@ export class Player {
     const was = this.running;
     this.running = false;
     this.stopTimers();
+    this.fadeBus(); // 已排程的音立刻收掉
     this.queue = [];
     this.hooks.onCount?.(null);
     if (was) this.hooks.onStop();
@@ -117,6 +149,7 @@ export class Player {
   /** 沒在播放時，點和弦就聽一下 */
   preview(ev: PlayEvent) {
     const ctx = this.ensure();
+    this.newBus();
     const bpm = clampBpm(this.hooks.getBpm());
     this.schedule({ ...ev, offset: 0, beats: Math.min(ev.beats, 2) }, ctx.currentTime + 0.03, 60 / bpm);
   }
@@ -158,6 +191,8 @@ export class Player {
     const tl = this.hooks.getTimeline();
     if (!tl.length) return this.stop();
     while (this.nextTime < ctx.currentTime + LOOKAHEAD_S) {
+      const range = this.hooks.getRange();
+      if (range && this.idx > range.to) this.idx = range.from; // 超過區間 → 回到區間開頭
       if (this.idx >= tl.length) this.idx = 0;
       const ev = tl[this.idx];
       const beatDur = 60 / clampBpm(this.hooks.getBpm());
@@ -165,7 +200,10 @@ export class Player {
       this.queue.push({ t: this.nextTime, ev, i: this.idx });
       this.nextTime += ev.beats * beatDur;
       this.idx++;
-      if (this.idx >= tl.length) {
+      const r2 = this.hooks.getRange();
+      if (r2 && this.idx > r2.to) {
+        this.idx = r2.from; // 選了區間就一直重複這一段
+      } else if (this.idx >= tl.length) {
         if (this.hooks.getLoop()) this.idx = 0;
         else {
           this.endAt = this.nextTime;
@@ -221,18 +259,18 @@ export class Player {
     g.gain.setValueAtTime(0.0001, time);
     g.gain.exponentialRampToValueAtTime(accent ? 0.22 : 0.14, time + 0.002);
     g.gain.exponentialRampToValueAtTime(0.0001, time + 0.04);
-    osc.connect(g).connect(this.master!);
+    osc.connect(g).connect(this.out());
     osc.start(time);
     osc.stop(time + 0.06);
   }
 
   private strum(midis: number[], time: number, dur: number, vel: number) {
     const per = (0.24 / Math.sqrt(Math.max(midis.length, 1))) * vel;
-    midis.forEach((m, i) => pianoNote(this.ctx!, this.master!, m, time + i * 0.008, dur, per));
+    midis.forEach((m, i) => pianoNote(this.ctx!, this.out(), m, time + i * 0.008, dur, per));
   }
 
   private bassNote(m: number, time: number, dur: number, vel: number) {
-    bassPluck(this.ctx!, this.master!, m, time, dur, 0.5 * vel);
+    bassPluck(this.ctx!, this.out(), m, time, dur, 0.5 * vel);
   }
 }
 

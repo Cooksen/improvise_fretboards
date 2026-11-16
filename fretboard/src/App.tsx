@@ -78,6 +78,10 @@ export default function App() {
   const [loopOn, setLoopOn] = useState(true);
   const [countIn, setCountIn] = useState(true);
   const [countNum, setCountNum] = useState<number | null>(null);
+  /** 循環區間（時間軸的和弦索引，含頭尾）；一次只有一組 */
+  const [loopRange, setLoopRange] = useState<{ from: number; to: number } | null>(null);
+  const [picking, setPicking] = useState(false);
+  const [pickAnchor, setPickAnchor] = useState<number | null>(null);
   const [sound, setSound] = useState<SoundOptions>({ click: false, comp: true, bass: true, volume: 0.7 });
 
   const playerRef = useRef<Player | null>(null);
@@ -96,6 +100,9 @@ export default function App() {
       setQuery(s.title);
       setSemitones(0);
       playerRef.current?.stop();
+      setLoopRange(null);
+      setPicking(false);
+      setPickAnchor(null);
       const chartBpm = Number(s.bpm);
       if (chartBpm > 0) {
         setBpm(clampBpm(chartBpm));
@@ -144,8 +151,8 @@ export default function App() {
     () => (song ? buildTimeline(song.bars, chartChords.map((bar) => bar.map((c) => c.analysis)), song.timeSignature) : []),
     [song, chartChords],
   );
-  const live = useRef({ bpm, sound, loopOn, timeline, countIn });
-  live.current = { bpm, sound, loopOn, timeline, countIn };
+  const live = useRef({ bpm, sound, loopOn, timeline, countIn, loopRange });
+  live.current = { bpm, sound, loopOn, timeline, countIn, loopRange };
 
   useEffect(() => {
     const player = new Player({
@@ -153,6 +160,7 @@ export default function App() {
       getTimeline: () => live.current.timeline,
       getOptions: () => live.current.sound,
       getLoop: () => live.current.loopOn,
+      getRange: () => live.current.loopRange,
       onCount: setCountNum,
       onStep: (ev) => setSelected({ bar: ev.bar, pos: ev.pos }),
       onStop: () => setPlaying(false),
@@ -179,7 +187,9 @@ export default function App() {
       return;
     }
     const sel = selectedRef.current;
-    const i = sel ? eventIndex(sel.bar, sel.pos) : 0;
+    let i = sel ? eventIndex(sel.bar, sel.pos) : 0;
+    const r = live.current.loopRange;
+    if (r && (i < r.from || i > r.to)) i = r.from; // 有選區間：從區間內開始
     setPlaying(true);
     player.start(Math.max(0, i), live.current.countIn ? 4 : 0);
   }, [eventIndex]);
@@ -207,14 +217,74 @@ export default function App() {
     }
   }, [selected, playing]);
 
-  const onChartSelect = (bar: number, pos: number) => {
+  const applyRange = (from: number, to: number) => {
+    const r = { from: Math.min(from, to), to: Math.max(from, to) };
+    setLoopRange(r);
+    setPicking(false);
+    setPickAnchor(null);
+    const player = playerRef.current;
+    if (player?.isRunning) {
+      const sel = selectedRef.current;
+      const cur = sel ? eventIndex(sel.bar, sel.pos) : -1;
+      if (cur < r.from || cur > r.to) player.seek(r.from); // 目前位置在區間外 → 跳進區間
+    }
+  };
+
+  const onChartSelect = (bar: number, pos: number, shift: boolean) => {
+    const i = eventIndex(bar, pos);
+    if (i < 0) return;
     setSelected({ bar, pos });
     const player = playerRef.current;
-    const i = eventIndex(bar, pos);
-    if (i < 0 || !player) return;
+
+    if (picking) {
+      // 挑區間：第一下 = 起點，第二下 = 終點（任何相鄰的和弦；一次只留一組）
+      if (pickAnchor == null) setPickAnchor(i);
+      else applyRange(pickAnchor, i);
+      return;
+    }
+    if (shift && selectedRef.current) {
+      // Shift+點：從目前選取的和弦延伸到這個和弦
+      const sel = selectedRef.current;
+      const a = eventIndex(sel.bar, sel.pos);
+      if (a >= 0 && a !== i) {
+        applyRange(a, i);
+        return;
+      }
+    }
+    if (!player) return;
     if (player.isRunning) player.seek(i);
     else if (sound.comp || sound.bass) player.preview(live.current.timeline[i]);
   };
+
+  const togglePick = () => {
+    setPicking((p) => !p);
+    setPickAnchor(null);
+  };
+  const clearRange = () => {
+    setLoopRange(null);
+    setPicking(false);
+    setPickAnchor(null);
+  };
+
+  const rangeState = (bar: number, pos: number) => {
+    const i = eventIndex(bar, pos);
+    if (pickAnchor != null && i === pickAnchor) return "single" as const;
+    const r = loopRange;
+    if (!r || i < r.from || i > r.to) return "none" as const;
+    if (r.from === r.to) return "single" as const;
+    return i === r.from ? ("start" as const) : i === r.to ? ("end" as const) : ("mid" as const);
+  };
+
+  const rangeLabel = useMemo(() => {
+    if (!loopRange || !song) return null;
+    const name = (idx: number) => {
+      const ev = timeline[idx];
+      if (!ev) return "?";
+      const n = song.bars[ev.bar].chords.length;
+      return n > 1 ? `${ev.bar + 1}.${ev.pos + 1}` : String(ev.bar + 1);
+    };
+    return t.rangeBars(name(loopRange.from), name(loopRange.to));
+  }, [loopRange, song, timeline, t]);
 
   // ---- 目前選取的和弦 → 指板標記 ----
   const tuningKey = tuningKeys[instrument];
@@ -250,12 +320,29 @@ export default function App() {
   }, [chartChords]);
 
   useEffect(() => {
+    // 空白鍵：不管焦點在哪個按鈕／核取方塊上都是「播放／暫停」（只有文字輸入欄與下拉選單例外）。
+    // 要同時擋 keydown 和 keyup，否則焦點在按鈕上時瀏覽器會在放開時再「點」一次那個按鈕。
+    const isSpace = (e: KeyboardEvent) => e.key === " " || e.code === "Space";
+    const typing = (el: HTMLElement | null) => {
+      if (!el) return false;
+      if (el.tagName === "SELECT" || el.tagName === "TEXTAREA") return true;
+      if (el.tagName !== "INPUT") return false;
+      return !["checkbox", "radio", "range", "button"].includes((el as HTMLInputElement).type);
+    };
     const onKey = (e: KeyboardEvent) => {
       const el = e.target as HTMLElement | null;
-      if (e.key === " " || e.code === "Space") {
-        if (el && ["INPUT", "SELECT", "TEXTAREA", "BUTTON"].includes(el.tagName) && (el as HTMLInputElement).type !== "range") return;
+      if (isSpace(e)) {
+        if (typing(el) || e.repeat) {
+          if (!typing(el)) e.preventDefault();
+          return;
+        }
         e.preventDefault();
         togglePlay();
+        return;
+      }
+      if (e.key === "Escape") {
+        setPicking(false);
+        setPickAnchor(null);
         return;
       }
       if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
@@ -266,8 +353,15 @@ export default function App() {
       const next = e.key === "ArrowRight" ? Math.min(playable.length - 1, i + 1) : Math.max(0, i <= 0 ? 0 : i - 1);
       setSelected(playable[next]);
     };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (isSpace(e) && !typing(e.target as HTMLElement | null)) e.preventDefault();
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("keyup", onKeyUp);
+    };
   }, [playable, selected, togglePlay]);
 
   const shift = (d: number) => setSemitones((s) => mod(s + d, 12));
@@ -446,6 +540,11 @@ export default function App() {
               tempoSource={tempoSource}
               onBpm={changeBpm}
               onResetBpm={resetBpm}
+              rangeLabel={rangeLabel}
+              picking={picking}
+              pickStep={pickAnchor == null ? "start" : "end"}
+              onPickToggle={togglePick}
+              onRangeClear={clearRange}
               loop={loopOn}
               onLoop={setLoopOn}
               countIn={countIn}
@@ -507,6 +606,8 @@ export default function App() {
             chords={chartChords}
             selected={selected}
             onSelect={onChartSelect}
+            rangeState={rangeState}
+            picking={picking}
           />
           <p className="hint">{t.hint}</p>
           <p className="hint">{t.playHint}</p>

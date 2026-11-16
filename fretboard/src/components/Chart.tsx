@@ -11,7 +11,11 @@ export interface ChartProps {
   bars: readonly Measure[];
   chords: readonly (readonly ChartChord[])[];
   selected: { bar: number; pos: number } | null;
-  onSelect: (bar: number, pos: number) => void;
+  onSelect: (bar: number, pos: number, shift: boolean) => void;
+  /** 這個和弦在「循環區間」的位置：none / start / mid / end / single */
+  rangeState?: (bar: number, pos: number) => "none" | "start" | "mid" | "end" | "single";
+  /** 正在挑區間（點開頭、再點結尾）時，游標提示 */
+  picking?: boolean;
 }
 
 const BARS_PER_ROW = 4;
@@ -31,10 +35,10 @@ function toRows(bars: readonly Measure[]): number[][] {
   return rows;
 }
 
-export default function Chart({ bars, chords, selected, onSelect }: ChartProps) {
+export default function Chart({ bars, chords, selected, onSelect, rangeState, picking }: ChartProps) {
   const rows = toRows(bars);
   return (
-    <div className="chart" role="list">
+    <div className={`chart${picking ? " chart-picking" : ""}`} role="list">
       {rows.map((row) => {
         const section = bars[row[0]].section;
         return (
@@ -47,13 +51,14 @@ export default function Chart({ bars, chords, selected, onSelect }: ChartProps) 
                   {chords[barIdx].map((c, pos) => {
                     const isNC = c.analysis === null;
                     const active = selected?.bar === barIdx && selected.pos === pos;
+                    const rs = rangeState?.(barIdx, pos) ?? "none";
                     return (
                       <button
                         key={pos}
                         type="button"
-                        className={`chord${active ? " chord-active" : ""}${isNC ? " chord-nc" : ""}`}
+                        className={`chord${active ? " chord-active" : ""}${isNC ? " chord-nc" : ""}${rs !== "none" ? ` chord-range chord-range-${rs}` : ""}`}
                         disabled={isNC}
-                        onClick={() => onSelect(barIdx, pos)}
+                        onClick={(e) => onSelect(barIdx, pos, e.shiftKey)}
                         aria-pressed={active}
                       >
                         <span className="chord-symbol">{isNC ? c.symbol : prettySymbol(c.symbol)}</span>
