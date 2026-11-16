@@ -1,0 +1,226 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f6f3ee;
+  --panel: #ffffff;
+  --fg: #231d17;
+  --muted: #7a6f63;
+  --line: color-mix(in srgb, var(--fg) 14%, transparent);
+  --wood: #3a281b;
+  --fret: #c9c9c9;
+  --nut: #efe6cf;
+  --inlay: #d9cfb8;
+  --string: #d8d8d8;
+  --string-wound: #c9a05a;
+  --root: #ef4444;
+  --outside: #facc15;
+  --outside-ink: #2a2200;
+  --scale: #3b82f6;
+  --accent: #2f6fed;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15120f;
+    --panel: #1f1a16;
+    --fg: #efe7da;
+    --muted: #9a8f82;
+  }
+}
+
+/* ♭ ♮ ♯ 在不同系統的預設字型間距差很多：只這三個符號改用專門的符號字型 */
+@font-face {
+  font-family: "Accidentals";
+  src: local("Apple Symbols"), local("Segoe UI Symbol"), local("DejaVu Sans"), local("Noto Sans Symbols 2");
+  unicode-range: U+266D-266F;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: "Accidentals", system-ui, -apple-system, "Segoe UI", "Noto Sans TC", sans-serif; }
+button, select, input { font: inherit; color: inherit; }
+
+.app { max-width: 1320px; margin: 0 auto; padding: 20px 20px 56px; }
+
+/* ---- 頂部 ---- */
+.top { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
+.top h1 { margin: 0; font-size: 1.35rem; letter-spacing: 0.01em; }
+.search { display: flex; gap: 8px; flex: 1 1 360px; max-width: 560px; }
+.search input { flex: 1; padding: 9px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); }
+.search button, .controls button, .notice button {
+  padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); cursor: pointer;
+}
+.search button { background: var(--accent); border-color: transparent; color: #fff; }
+.search button:disabled, .controls button:disabled { opacity: 0.45; cursor: default; }
+
+.notice { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; background: color-mix(in srgb, var(--outside) 22%, var(--panel)); border: 1px solid color-mix(in srgb, var(--outside) 55%, transparent); }
+.notice p { margin: 0; }
+.notice .suggest { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.notice .suggest button { padding: 4px 10px; }
+
+.loading { color: var(--muted); margin-top: 24px; }
+
+/* ---- 曲目資訊 ---- */
+.song-meta { margin: 18px 0 6px; }
+.song-meta h2 { margin: 0; font-size: 1.7rem; }
+.song-meta p { margin: 4px 0 0; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.keybadge { padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.85rem; color: var(--fg); }
+.keybadge-now { background: var(--accent); border-color: transparent; color: #fff; }
+
+/* ---- 控制列 ---- */
+.controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: end; margin: 14px 0; }
+.ctl, .transpose { display: flex; flex-direction: column; gap: 4px; }
+.transpose { flex-direction: row; align-items: end; gap: 6px; flex-wrap: wrap; }
+.transpose .ctl-label { align-self: center; margin-right: 2px; }
+.ctl-label, .segmented legend { font-size: 0.8rem; color: var(--muted); padding: 0; }
+.controls select { padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); }
+.transpose button { min-width: 36px; }
+.transpose .ghost { background: transparent; }
+
+.segmented { border: 0; margin: 0; padding: 0; position: relative; min-width: 0; }
+.seg-row { display: flex; }
+.segmented label { cursor: pointer; padding: 8px 18px; border: 1px solid var(--line); background: var(--panel); }
+.segmented label:first-child { border-radius: 8px 0 0 8px; }
+.segmented label:last-child { border-radius: 0 8px 8px 0; margin-left: -1px; }
+.segmented label.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.segmented input { position: absolute; opacity: 0; pointer-events: none; }
+.segmented legend { margin-bottom: 4px; }
+
+/* ---- 指板區（固定在上方） ---- */
+.stage {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--bg);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+}
+.stage-info { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; min-height: 44px; padding: 0 2px 6px; }
+.stage-chord { font-size: 1.6rem; font-weight: 700; }
+.stage-roman { color: var(--muted); font-size: 1.05rem; }
+.stage-hint { color: var(--muted); }
+.stage-tones { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.tone { display: inline-flex; align-items: baseline; gap: 4px; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); font-weight: 600; }
+.tone small { color: var(--muted); font-weight: 500; font-size: 0.75rem; }
+.tone-root { background: var(--root); border-color: transparent; color: #fff; }
+.tone-root small { color: rgba(255,255,255,0.85); }
+.tone-out { background: var(--outside); border-color: transparent; color: var(--outside-ink); }
+.tone-out small { color: rgba(42,34,0,0.7); }
+
+.legend { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.82rem; }
+.lg { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-left: 8px; }
+.lg-root { background: var(--root); }
+.lg-out { background: var(--outside); }
+.lg-scale { background: var(--scale); }
+.lg-chord { background: transparent; border: 2px solid var(--fg); width: 14px; height: 14px; }
+
+.board-scroll { overflow-x: auto; }
+
+/* ---- 指板 SVG ---- */
+.fretboard { display: block; width: 100%; height: auto; min-width: 960px; user-select: none; }
+.fb-wood { fill: var(--wood); }
+.fb-inlay { fill: var(--inlay); opacity: 0.45; }
+.fb-fret { stroke: var(--fret); stroke-width: 2.4; }
+.fb-nut { fill: var(--nut); }
+.fb-string { stroke: var(--string); stroke-linecap: round; }
+.fb-string-wound { stroke: var(--string-wound); }
+.fb-number { fill: var(--muted); font-size: 12px; }
+.fb-number-marked { fill: var(--fg); font-weight: 700; }
+.fb-open-name { fill: var(--muted); font-size: 13px; font-weight: 600; }
+
+.fb-mark text { font-size: 12px; font-weight: 700; pointer-events: none; fill: #fff; }
+.fb-mark circle { stroke: none; opacity: 0.78; }
+.fb-mark-scale circle { fill: var(--scale); }
+.fb-mark-outside circle { fill: var(--outside); opacity: 0.95; }
+.fb-mark-outside text { fill: var(--outside-ink); }
+.fb-mark-root circle { fill: var(--root); opacity: 1; }
+.fb-mark-chord circle { stroke: #fff; stroke-width: 2.5; opacity: 1; }
+
+/* ---- 小節和弦圖 ---- */
+.chart { display: flex; flex-direction: column; gap: 10px; }
+.chart-row { display: grid; grid-template-columns: 34px 1fr; gap: 8px; align-items: stretch; }
+.chart-section { display: flex; align-items: center; justify-content: center; }
+.chart-section span { width: 26px; height: 26px; display: grid; place-items: center; border: 1.5px solid var(--fg); border-radius: 4px; font-weight: 700; font-size: 0.85rem; }
+.chart-bars { display: grid; border-left: 2.5px solid var(--fg); }
+.bar { position: relative; display: flex; align-items: stretch; min-height: 78px; border-right: 1.5px solid var(--fg); }
+.chart-bars .bar:last-child { border-right-width: 2.5px; }
+.bar-no { position: absolute; top: 3px; left: 6px; font-size: 0.68rem; color: var(--muted); pointer-events: none; }
+
+.chord { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 14px 4px 8px; border: 0; background: transparent; cursor: pointer; border-radius: 6px; margin: 3px; }
+.chord:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.chord-symbol { font-size: 1.35rem; font-weight: 600; white-space: nowrap; }
+.chord-roman { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.chord-nc { cursor: default; color: var(--muted); }
+.chord-active { background: var(--accent) !important; color: #fff; }
+.chord-active .chord-roman { color: rgba(255,255,255,0.85); }
+
+.hint { margin-top: 18px; color: var(--muted); font-size: 0.85rem; }
+
+@media (max-width: 720px) {
+  .chart-row { grid-template-columns: 1fr; }
+  .chart-section { justify-content: flex-start; }
+  .chord-symbol { font-size: 1.1rem; }
+}
+
+/* SVG 內的文字也要吃到符號字型 */
+.fretboard text { font-family: "Accidentals", system-ui, -apple-system, "Segoe UI", sans-serif; }
+
+/* ---- 語言切換 ---- */
+.lang { display: inline-flex; }
+.lang button { padding: 6px 12px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
+.lang button:first-child { border-radius: 8px 0 0 8px; }
+.lang button:last-child { border-radius: 0 8px 8px 0; margin-left: -1px; }
+.lang button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* ---- 樂器分頁 ---- */
+.tabs { display: flex; gap: 4px; margin-top: 14px; border-bottom: 1px solid var(--line); }
+.tabs button {
+  padding: 9px 18px; border: 1px solid transparent; border-bottom: 0; border-radius: 10px 10px 0 0;
+  background: transparent; color: var(--muted); cursor: pointer; margin-bottom: -1px;
+}
+.tabs button:hover { color: var(--fg); }
+.tabs button.on { background: var(--bg); color: var(--fg); font-weight: 700; border-color: var(--line); border-bottom: 2px solid var(--bg); }
+.tabs + .controls { margin-top: 16px; }
+
+/* ---- 品位範圍雙滑桿 ---- */
+.range-ctl { min-width: 300px; flex: 1 1 300px; max-width: 460px; }
+.range-ctl .ctl-label b { color: var(--fg); }
+.range-row { display: flex; align-items: center; gap: 12px; }
+.range { position: relative; flex: 1; height: 30px; }
+.range-track { position: absolute; left: 9px; right: 9px; top: 13px; height: 4px; border-radius: 2px; background: var(--line); }
+.range-fill { position: absolute; top: 0; bottom: 0; background: var(--accent); border-radius: 2px; }
+.range input[type="range"] {
+  position: absolute; inset: 0; width: 100%; height: 30px; margin: 0;
+  background: transparent; pointer-events: none; -webkit-appearance: none; appearance: none;
+}
+.range input[type="range"]::-webkit-slider-runnable-track { background: transparent; height: 30px; }
+.range input[type="range"]::-moz-range-track { background: transparent; }
+.range input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; pointer-events: auto; width: 18px; height: 18px; margin-top: 6px;
+  border-radius: 50%; background: #fff; border: 2px solid var(--accent); cursor: grab; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+.range input[type="range"]::-moz-range-thumb {
+  pointer-events: auto; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--accent); cursor: grab;
+}
+.range input[type="range"]:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--fg); outline-offset: 2px; }
+.range-row .ghost { white-space: nowrap; }
+.controls .ghost { background: transparent; }
+
+/* ---- 指板：範圍外變暗、bass 弦 ---- */
+.fb-string-bass { stroke: #cfd3d8; }
+
+/* ---- 播放列 ---- */
+.player { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; padding: 2px 2px 8px; }
+.player button, .player input[type="number"] { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); font: inherit; }
+.player button { cursor: pointer; }
+.player .ghost { background: transparent; padding: 4px 10px; font-size: 0.85rem; }
+.play-btn { display: inline-flex; align-items: center; gap: 8px; min-width: 104px; justify-content: center; font-weight: 600; }
+.play-btn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tempo { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.tempo input[type="number"] { width: 84px; padding-left: 6px; padding-right: 6px; text-align: center; }
+.bpm-unit { font-size: 0.8rem; color: var(--muted); }
+.bpm-slider { width: 150px; }
+.tempo-note { font-size: 0.78rem; color: var(--muted); }
+.tempo-custom { color: var(--accent); }
+.toggles { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.toggles label { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); font-size: 0.88rem; cursor: pointer; }
+.toggles label.on { border-color: var(--accent); color: var(--accent); }
+.toggles label.vol { border: 0; background: transparent; color: var(--muted); cursor: default; }
+.toggles label.vol input { width: 90px; }
+.toggles input[type="checkbox"] { accent-color: var(--accent); margin: 0; }

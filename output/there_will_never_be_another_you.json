@@ -1,0 +1,792 @@
+{
+  "title": "There Will Never Be Another You",
+  "composer": "Warren Harry",
+  "style": "Medium Up Swing",
+  "key": "Eb",
+  "transpose": "",
+  "bpm": "",
+  "time_signature": "4/4",
+  "raw_chords": "*A[T44Eb^7XyQKcl LZDh7XyQ|G7b9XyQ|C-7XyQKcl LZBb-7XyQ|Eb7XyQ]*B[Ab^7XyQ|Db7#11XyQ|Eb^7XyQ|C-7XyQ|F7XyQKcl LZF-7XyQ|Bb7XyQ]*A[Eb^7XyQKcl LZDh7XyQ|G7b9XyQ|C-7XyQKcl LZBb-7XyQ|Eb7XyQ]*C[Ab^7XyQ|Db7#11XyQ|Eb^7XyQ|Ah7 D7LZEb^7 Ab7LZG-7 C7LZF-7 Bb7LZEb6 Bb7 Z",
+  "measures": [
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "A",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Dh7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "G7b9"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Bb-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Ab^7"
+      ],
+      "section": "B",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Db7#11"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Bb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "A",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Dh7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "G7b9"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Bb-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Ab^7"
+      ],
+      "section": "C",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Db7#11"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Ah7",
+        "D7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7",
+        "Ab7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "G-7",
+        "C7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F-7",
+        "Bb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb6",
+        "Bb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    }
+  ],
+  "expanded": [
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "A",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Dh7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "G7b9"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Bb-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Ab^7"
+      ],
+      "section": "B",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Db7#11"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Bb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "A",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Dh7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "G7b9"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "C-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Bb-7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Ab^7"
+      ],
+      "section": "C",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Db7#11"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Ah7",
+        "D7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb^7",
+        "Ab7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "G-7",
+        "C7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "F-7",
+        "Bb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    },
+    {
+      "chords": [
+        "Eb6",
+        "Bb7"
+      ],
+      "section": "",
+      "repeat_start": false,
+      "repeat_end": false,
+      "ending": 0,
+      "comment": "",
+      "coda": false,
+      "segno": false
+    }
+  ]
+}

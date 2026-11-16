@@ -1,0 +1,1577 @@
+{
+  "key": "Eb major",
+  "rows": [
+    {
+      "bar": 1,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Eb^7",
+      "analysis": {
+        "symbol": "Eb^7",
+        "roman": "Imaj7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 2,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Eb^7",
+      "analysis": {
+        "symbol": "Eb^7",
+        "roman": "Imaj7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 3,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Dh7",
+      "analysis": {
+        "symbol": "Dh7",
+        "roman": "viiø7",
+        "root_degree": "7",
+        "root_note": "D",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b5",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 4,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "G7b9",
+      "analysis": {
+        "symbol": "G7b9",
+        "roman": "III7b9",
+        "root_degree": "3",
+        "root_note": "G",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "B",
+            "degree": "#5",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b9",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "#5"
+        ]
+      }
+    },
+    {
+      "bar": 5,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "C-7",
+      "analysis": {
+        "symbol": "C-7",
+        "roman": "vi7",
+        "root_degree": "6",
+        "root_note": "C",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 6,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "C-7",
+      "analysis": {
+        "symbol": "C-7",
+        "roman": "vi7",
+        "root_degree": "6",
+        "root_note": "C",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 7,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Bb-7",
+      "analysis": {
+        "symbol": "Bb-7",
+        "roman": "v7",
+        "root_degree": "5",
+        "root_note": "Bb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Db",
+            "degree": "b7",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "b7"
+        ]
+      }
+    },
+    {
+      "bar": 8,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Eb7",
+      "analysis": {
+        "symbol": "Eb7",
+        "roman": "I7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Db",
+            "degree": "b7",
+            "in_key": false
+          }
+        ],
+        "outside": [
+          "b7"
+        ]
+      }
+    },
+    {
+      "bar": 9,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "Ab^7",
+      "analysis": {
+        "symbol": "Ab^7",
+        "roman": "IVmaj7",
+        "root_degree": "4",
+        "root_note": "Ab",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 10,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "Db7#11",
+      "analysis": {
+        "symbol": "Db7#11",
+        "roman": "bVII7#11",
+        "root_degree": "b7",
+        "root_note": "Db",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Db",
+            "degree": "b7",
+            "in_key": false
+          },
+          {
+            "chord_function": "3",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Cb",
+            "degree": "b6",
+            "in_key": false
+          },
+          {
+            "chord_function": "#11",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "b7",
+          "b6"
+        ]
+      }
+    },
+    {
+      "bar": 11,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "Eb^7",
+      "analysis": {
+        "symbol": "Eb^7",
+        "roman": "Imaj7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 12,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "C-7",
+      "analysis": {
+        "symbol": "C-7",
+        "roman": "vi7",
+        "root_degree": "6",
+        "root_note": "C",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 13,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "F7",
+      "analysis": {
+        "symbol": "F7",
+        "roman": "II7",
+        "root_degree": "2",
+        "root_note": "F",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "A",
+            "degree": "#4",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "#4"
+        ]
+      }
+    },
+    {
+      "bar": 14,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "F7",
+      "analysis": {
+        "symbol": "F7",
+        "roman": "II7",
+        "root_degree": "2",
+        "root_note": "F",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "A",
+            "degree": "#4",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "#4"
+        ]
+      }
+    },
+    {
+      "bar": 15,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "F-7",
+      "analysis": {
+        "symbol": "F-7",
+        "roman": "ii7",
+        "root_degree": "2",
+        "root_note": "F",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 16,
+      "pos": 1,
+      "beats": 1,
+      "section": "B",
+      "symbol": "Bb7",
+      "analysis": {
+        "symbol": "Bb7",
+        "roman": "V7",
+        "root_degree": "5",
+        "root_note": "Bb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 17,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Eb^7",
+      "analysis": {
+        "symbol": "Eb^7",
+        "roman": "Imaj7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 18,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Eb^7",
+      "analysis": {
+        "symbol": "Eb^7",
+        "roman": "Imaj7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 19,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Dh7",
+      "analysis": {
+        "symbol": "Dh7",
+        "roman": "viiø7",
+        "root_degree": "7",
+        "root_note": "D",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b5",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 20,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "G7b9",
+      "analysis": {
+        "symbol": "G7b9",
+        "roman": "III7b9",
+        "root_degree": "3",
+        "root_note": "G",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "B",
+            "degree": "#5",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b9",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "#5"
+        ]
+      }
+    },
+    {
+      "bar": 21,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "C-7",
+      "analysis": {
+        "symbol": "C-7",
+        "roman": "vi7",
+        "root_degree": "6",
+        "root_note": "C",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 22,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "C-7",
+      "analysis": {
+        "symbol": "C-7",
+        "roman": "vi7",
+        "root_degree": "6",
+        "root_note": "C",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 23,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Bb-7",
+      "analysis": {
+        "symbol": "Bb-7",
+        "roman": "v7",
+        "root_degree": "5",
+        "root_note": "Bb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Db",
+            "degree": "b7",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "b7"
+        ]
+      }
+    },
+    {
+      "bar": 24,
+      "pos": 1,
+      "beats": 1,
+      "section": "A",
+      "symbol": "Eb7",
+      "analysis": {
+        "symbol": "Eb7",
+        "roman": "I7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Db",
+            "degree": "b7",
+            "in_key": false
+          }
+        ],
+        "outside": [
+          "b7"
+        ]
+      }
+    },
+    {
+      "bar": 25,
+      "pos": 1,
+      "beats": 1,
+      "section": "C",
+      "symbol": "Ab^7",
+      "analysis": {
+        "symbol": "Ab^7",
+        "roman": "IVmaj7",
+        "root_degree": "4",
+        "root_note": "Ab",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 26,
+      "pos": 1,
+      "beats": 1,
+      "section": "C",
+      "symbol": "Db7#11",
+      "analysis": {
+        "symbol": "Db7#11",
+        "roman": "bVII7#11",
+        "root_degree": "b7",
+        "root_note": "Db",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Db",
+            "degree": "b7",
+            "in_key": false
+          },
+          {
+            "chord_function": "3",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Cb",
+            "degree": "b6",
+            "in_key": false
+          },
+          {
+            "chord_function": "#11",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "b7",
+          "b6"
+        ]
+      }
+    },
+    {
+      "bar": 27,
+      "pos": 1,
+      "beats": 1,
+      "section": "C",
+      "symbol": "Eb^7",
+      "analysis": {
+        "symbol": "Eb^7",
+        "roman": "Imaj7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 28,
+      "pos": 1,
+      "beats": 2,
+      "section": "C",
+      "symbol": "Ah7",
+      "analysis": {
+        "symbol": "Ah7",
+        "roman": "#ivø7",
+        "root_degree": "#4",
+        "root_note": "A",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "A",
+            "degree": "#4",
+            "in_key": false
+          },
+          {
+            "chord_function": "b3",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b5",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "#4"
+        ]
+      }
+    },
+    {
+      "bar": 28,
+      "pos": 2,
+      "beats": 2,
+      "section": "C",
+      "symbol": "D7",
+      "analysis": {
+        "symbol": "D7",
+        "roman": "VII7",
+        "root_degree": "7",
+        "root_note": "D",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "F#",
+            "degree": "#2",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "A",
+            "degree": "#4",
+            "in_key": false
+          },
+          {
+            "chord_function": "b7",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "#2",
+          "#4"
+        ]
+      }
+    },
+    {
+      "bar": 29,
+      "pos": 1,
+      "beats": 2,
+      "section": "C",
+      "symbol": "Eb^7",
+      "analysis": {
+        "symbol": "Eb^7",
+        "roman": "Imaj7",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "7",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 29,
+      "pos": 2,
+      "beats": 2,
+      "section": "C",
+      "symbol": "Ab7",
+      "analysis": {
+        "symbol": "Ab7",
+        "roman": "IV7",
+        "root_degree": "4",
+        "root_note": "Ab",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Gb",
+            "degree": "b3",
+            "in_key": false
+          }
+        ],
+        "outside": [
+          "b3"
+        ]
+      }
+    },
+    {
+      "bar": 30,
+      "pos": 1,
+      "beats": 2,
+      "section": "C",
+      "symbol": "G-7",
+      "analysis": {
+        "symbol": "G-7",
+        "roman": "iii7",
+        "root_degree": "3",
+        "root_note": "G",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 30,
+      "pos": 2,
+      "beats": 2,
+      "section": "C",
+      "symbol": "C7",
+      "analysis": {
+        "symbol": "C7",
+        "roman": "VI7",
+        "root_degree": "6",
+        "root_note": "C",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "E",
+            "degree": "#1",
+            "in_key": false
+          },
+          {
+            "chord_function": "5",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          }
+        ],
+        "outside": [
+          "#1"
+        ]
+      }
+    },
+    {
+      "bar": 31,
+      "pos": 1,
+      "beats": 2,
+      "section": "C",
+      "symbol": "F-7",
+      "analysis": {
+        "symbol": "F-7",
+        "roman": "ii7",
+        "root_degree": "2",
+        "root_note": "F",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b3",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 31,
+      "pos": 2,
+      "beats": 2,
+      "section": "C",
+      "symbol": "Bb7",
+      "analysis": {
+        "symbol": "Bb7",
+        "roman": "V7",
+        "root_degree": "5",
+        "root_note": "Bb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 32,
+      "pos": 1,
+      "beats": 2,
+      "section": "C",
+      "symbol": "Eb6",
+      "analysis": {
+        "symbol": "Eb6",
+        "roman": "I6",
+        "root_degree": "1",
+        "root_note": "Eb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Eb",
+            "degree": "1",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "G",
+            "degree": "3",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "6",
+            "note": "C",
+            "degree": "6",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    },
+    {
+      "bar": 32,
+      "pos": 2,
+      "beats": 2,
+      "section": "C",
+      "symbol": "Bb7",
+      "analysis": {
+        "symbol": "Bb7",
+        "roman": "V7",
+        "root_degree": "5",
+        "root_note": "Bb",
+        "bass_degree": "",
+        "tones": [
+          {
+            "chord_function": "1",
+            "note": "Bb",
+            "degree": "5",
+            "in_key": true
+          },
+          {
+            "chord_function": "3",
+            "note": "D",
+            "degree": "7",
+            "in_key": true
+          },
+          {
+            "chord_function": "5",
+            "note": "F",
+            "degree": "2",
+            "in_key": true
+          },
+          {
+            "chord_function": "b7",
+            "note": "Ab",
+            "degree": "4",
+            "in_key": true
+          }
+        ],
+        "outside": []
+      }
+    }
+  ]
+}
