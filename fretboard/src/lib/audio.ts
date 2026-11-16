@@ -12,6 +12,8 @@ export interface PlayerHooks {
   getTimeline: () => readonly PlayEvent[];
   getOptions: () => SoundOptions;
   getLoop: () => boolean;
+  /** 預備拍：第 n 拍（1 起算）時呼叫；開始正式播放時傳 null */
+  onCount?: (n: number | null) => void;
   /** 播放位置換到某個和弦時（和聲音對齊）呼叫 */
   onStep: (ev: PlayEvent, index: number) => void;
   /** 播到最後（不循環時）或被停止 */
@@ -41,7 +43,7 @@ export class Player {
   private raf: number | null = null;
   private idx = 0;
   private nextTime = 0;
-  private queue: { t: number; ev: PlayEvent; i: number }[] = [];
+  private queue: { t: number; ev: PlayEvent | null; i: number; count?: number }[] = [];
   private endAt: number | null = null;
   private running = false;
 
@@ -68,7 +70,8 @@ export class Player {
     if (this.master && this.ctx) this.master.gain.setTargetAtTime(Math.max(0, Math.min(1, v)) * 0.9, this.ctx.currentTime, 0.02);
   }
 
-  start(index: number) {
+  /** countIn：正式開始前先打幾拍預備拍（0 = 不要） */
+  start(index: number, countIn = 0) {
     const ctx = this.ensure();
     this.stopTimers();
     this.running = true;
@@ -76,6 +79,13 @@ export class Player {
     this.nextTime = ctx.currentTime + 0.08;
     this.queue = [];
     this.endAt = null;
+    const beatDur = 60 / clampBpm(this.hooks.getBpm());
+    for (let k = 0; k < countIn; k++) {
+      const t = this.nextTime + k * beatDur;
+      this.click(t, k === 0);
+      this.queue.push({ t, ev: null, i: -1, count: k + 1 });
+    }
+    this.nextTime += countIn * beatDur;
     this.timer = window.setInterval(() => this.tick(), TICK_MS);
     this.tick();
     const frame = () => {
@@ -92,6 +102,7 @@ export class Player {
     this.nextTime = this.ctx.currentTime + 0.05;
     this.queue = [];
     this.endAt = null;
+    this.hooks.onCount?.(null);
   }
 
   stop() {
@@ -99,6 +110,7 @@ export class Player {
     this.running = false;
     this.stopTimers();
     this.queue = [];
+    this.hooks.onCount?.(null);
     if (was) this.hooks.onStop();
   }
 
@@ -125,8 +137,18 @@ export class Player {
     if (!this.ctx) return;
     const now = this.ctx.currentTime;
     let last: { ev: PlayEvent; i: number } | null = null;
-    while (this.queue.length && this.queue[0].t <= now) last = this.queue.shift()!;
-    if (last) this.hooks.onStep(last.ev, last.i);
+    while (this.queue.length && this.queue[0].t <= now) {
+      const q = this.queue.shift()!;
+      if (q.ev) {
+        last = { ev: q.ev, i: q.i };
+      } else if (q.count != null) {
+        this.hooks.onCount?.(q.count);
+      }
+    }
+    if (last) {
+      this.hooks.onCount?.(null);
+      this.hooks.onStep(last.ev, last.i);
+    }
     if (this.endAt != null && now >= this.endAt && !this.queue.length) this.stop();
   }
 

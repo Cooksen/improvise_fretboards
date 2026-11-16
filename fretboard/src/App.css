@@ -224,3 +224,4 @@ button, select, input { font: inherit; color: inherit; }
 .toggles label.vol { border: 0; background: transparent; color: var(--muted); cursor: default; }
 .toggles label.vol input { width: 90px; }
 .toggles input[type="checkbox"] { accent-color: var(--accent); margin: 0; }
+.count-badge { min-width: 64px; text-align: center; padding: 5px 10px; border-radius: 8px; background: color-mix(in srgb, var(--outside) 35%, var(--panel)); border: 1px solid color-mix(in srgb, var(--outside) 60%, transparent); font-weight: 700; }

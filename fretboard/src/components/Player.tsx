@@ -11,6 +11,10 @@ export interface PlayerBarProps {
   tempoSource: TempoSource;
   onBpm: (n: number) => void;
   onResetBpm: () => void;
+  countIn: boolean;
+  onCountIn: (v: boolean) => void;
+  /** 預備拍進行中：目前第幾拍（1–4），否則 null */
+  countNum: number | null;
   loop: boolean;
   onLoop: (v: boolean) => void;
   click: boolean;
@@ -32,6 +36,11 @@ export default function PlayerBar(p: PlayerBarProps) {
         <span aria-hidden="true">{p.playing ? "❚❚" : "▶"}</span>
         {p.playing ? t.pause : t.play}
       </button>
+      {p.countNum != null && (
+        <span className="count-badge" aria-live="polite">
+          {t.countIn} {p.countNum}
+        </span>
+      )}
 
       <div className="tempo">
         <button type="button" onClick={() => p.onBpm(p.bpm - 1)} aria-label="−1 BPM">
@@ -68,6 +77,10 @@ export default function PlayerBar(p: PlayerBarProps) {
       </div>
 
       <div className="toggles">
+        <label className={p.countIn ? "on" : ""}>
+          <input type="checkbox" checked={p.countIn} onChange={(e) => p.onCountIn(e.target.checked)} />
+          {t.countIn}
+        </label>
         <label className={p.loop ? "on" : ""}>
           <input type="checkbox" checked={p.loop} onChange={(e) => p.onLoop(e.target.checked)} />
           {t.loop}

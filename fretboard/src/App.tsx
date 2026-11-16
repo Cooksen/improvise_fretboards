@@ -76,6 +76,8 @@ export default function App() {
   const [bpm, setBpm] = useState(120);
   const [tempoSource, setTempoSource] = useState<TempoSource>("style");
   const [loopOn, setLoopOn] = useState(true);
+  const [countIn, setCountIn] = useState(true);
+  const [countNum, setCountNum] = useState<number | null>(null);
   const [sound, setSound] = useState<SoundOptions>({ click: false, comp: true, bass: true, volume: 0.7 });
 
   const playerRef = useRef<Player | null>(null);
@@ -142,8 +144,8 @@ export default function App() {
     () => (song ? buildTimeline(song.bars, chartChords.map((bar) => bar.map((c) => c.analysis)), song.timeSignature) : []),
     [song, chartChords],
   );
-  const live = useRef({ bpm, sound, loopOn, timeline });
-  live.current = { bpm, sound, loopOn, timeline };
+  const live = useRef({ bpm, sound, loopOn, timeline, countIn });
+  live.current = { bpm, sound, loopOn, timeline, countIn };
 
   useEffect(() => {
     const player = new Player({
@@ -151,6 +153,7 @@ export default function App() {
       getTimeline: () => live.current.timeline,
       getOptions: () => live.current.sound,
       getLoop: () => live.current.loopOn,
+      onCount: setCountNum,
       onStep: (ev) => setSelected({ bar: ev.bar, pos: ev.pos }),
       onStop: () => setPlaying(false),
     });
@@ -178,7 +181,7 @@ export default function App() {
     const sel = selectedRef.current;
     const i = sel ? eventIndex(sel.bar, sel.pos) : 0;
     setPlaying(true);
-    player.start(Math.max(0, i));
+    player.start(Math.max(0, i), live.current.countIn ? 4 : 0);
   }, [eventIndex]);
 
   const changeBpm = (n: number) => {
@@ -445,6 +448,9 @@ export default function App() {
               onResetBpm={resetBpm}
               loop={loopOn}
               onLoop={setLoopOn}
+              countIn={countIn}
+              onCountIn={setCountIn}
+              countNum={countNum}
               click={sound.click}
               onClick={(v) => setSound((o) => ({ ...o, click: v }))}
               comp={sound.comp}
